@@ -1,4 +1,5 @@
 const EventEmitter = require("events");
+const debug = require("debug")('taskQueue');
 class taskQ extends EventEmitter {
   constructor({ limit = 1 } = { limit: 1 }) {
     super();
@@ -9,7 +10,7 @@ class taskQ extends EventEmitter {
     taskQ.len++;
     return taskQ.len;
   }
-  push({ run }) {
+  push( run ) {
     let canNext = this._canNext();
     let id = taskQ.getId()
     this.queue.push({
@@ -20,6 +21,7 @@ class taskQ extends EventEmitter {
       this._next();
     return new Promise((resolve, reject) => {
       this.once(`task${id}`, ({result, error}) => {
+        debug(`task${id} finish`)
         if(error !== void 0) {
           reject(error);
         }
@@ -33,6 +35,7 @@ class taskQ extends EventEmitter {
   _next() {
     if(taskQ.currentId >= taskQ.len)
       return;
+    debug(`task${taskQ.currentId+1} start run`)
     let { run, id } = this.queue[taskQ.currentId];
     taskQ.currentId++;
     run()

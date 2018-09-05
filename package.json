@@ -1,0 +1,23 @@
+{
+  "name": "taskq",
+  "version": "1.0.0",
+  "description": "A async task queue",
+  "main": "index.js",
+  "scripts": {
+    "test": "DEBUG=taskQueue node ./test/test",
+    "start": "node ./test/test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luckyscript/taskQ.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/luckyscript/taskQ/issues"
+  },
+  "homepage": "https://github.com/luckyscript/taskQ#readme",
+  "dependencies": {
+    "debug": "^3.1.0"
+  }
+}
